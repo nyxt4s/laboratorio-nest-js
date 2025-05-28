@@ -119,4 +119,25 @@ export class AccountController {
 }
 
     
-// En Fastify, puedes usar la opción:querystringParser
+//query parameters
+// The @Query() decorator extracts query parameters from the request URL.
+// In this case, it extracts the 'age' and 'breed' query parameters.
+// The method returns a string response that includes the values of the 'age' and 'breed' parameters.
+//  Example Path GET /cats?age=2&breed=Persian
+@Controller('cats/query')
+export class CatsQueryController {
+    @Get()
+    findAll(@Query('age') age: number, @Query('breed') breed: string): string {
+        return `This action returns all cats filtered by age: ${age} and breed: ${breed}`;
+    }
+
+    //other example PAth GET /cats/query?age=2&breed=Persian
+    // The @Query() decorator extracts query parameters from the request URL.
+    // In this case, it extracts the 'age' and 'breed' query parameters.
+    // The method returns an array of cats filtered by the provided 'age' and 'breed' parameters.
+    @Get()
+    findAllWithArray(@Query('age') age: number, @Query('breed') breed: string): any[] {
+    // Aquí iría la lógica para filtrar gatos
+    return [{ name: 'Michi', age, breed }];
+}
+}
